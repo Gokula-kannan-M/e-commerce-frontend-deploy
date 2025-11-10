@@ -27,7 +27,7 @@ export default function Products() {
     return () => {
       componentMounted.current = false;
     };
-  }, [filter]);
+  }, []);
 
   const Loading = () => {
     return (
