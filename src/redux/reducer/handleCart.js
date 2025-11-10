@@ -4,13 +4,15 @@ const handleCart = (state = cart, action) => {
   const product = action.payload;
 
   switch (action.type) {
-    case "ADDITEM":
-      // Check product is exists
+    case "ADDITEM": {
+      // Check if product already exists
       const exist = state.find((x) => x.id === product.id);
       if (exist) {
         // Increase Quantity
         return state.map((x) =>
-          x.id === product.id ? { ...x, qty: x.qty + 1, sub_total: (x.qty + 1) * x.price } : x
+          x.id === product.id
+            ? { ...x, qty: x.qty + 1, sub_total: (x.qty + 1) * x.price }
+            : x
         );
       }
 
@@ -19,29 +21,34 @@ const handleCart = (state = cart, action) => {
         {
           ...product,
           qty: 1,
-          sub_total: product.price
+          sub_total: product.price,
         },
       ];
+    }
 
-    case "DELITEM":
+    case "DELITEM": {
       const exist1 = state.find((x) => x.id === product.id);
       if (exist1.qty === 1) {
         return state.filter((x) => x.id !== exist1.id);
       } else {
         return state.map((x) =>
-          x.id === product.id ? { ...x, qty: x.qty - 1, sub_total: (x.qty - 1) * x.price } : x
+          x.id === product.id
+            ? { ...x, qty: x.qty - 1, sub_total: (x.qty - 1) * x.price }
+            : x
         );
       }
+    }
 
-    case "RMVITEM":
+    case "RMVITEM": {
       const exist2 = state.find((x) => x.id === product.id);
-      if (exist2.qty) {
+      if (exist2) {
         return state.filter((x) => x.id !== exist2.id);
       }
+      return state; 
+    }
 
     default:
       return state;
-      
   }
 };
 
