@@ -19,9 +19,9 @@ export default function Products() {
         setLoading(false);
         console.log(filter);
       }
-      return () => {
-        componentMounted.current = false;
-      };
+      // return () => {
+      //   componentMounted.current = false;
+      // };
     };
     getProducts();
     return () => {
